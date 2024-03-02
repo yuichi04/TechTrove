@@ -1,0 +1,11 @@
+# Node.js関連
+node_modules/
+npm-debug.log
+
+# IDE関連
+.vscode/
+
+# その他
+.env
+*.env
+.secret
