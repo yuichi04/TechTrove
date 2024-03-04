@@ -9,6 +9,4 @@ const hoge = (text) => {
 
 hoge('cba');
 
-const hello_world = () => {
-  return true
-}
+const helloWorld = () => {};
