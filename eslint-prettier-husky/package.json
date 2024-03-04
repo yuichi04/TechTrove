@@ -8,7 +8,7 @@
     "lint": "eslint app.js",
     "fix": "eslint --fix app.js",
     "format": "prettier --write .",
-    "postinstall": "husky install"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.js": [

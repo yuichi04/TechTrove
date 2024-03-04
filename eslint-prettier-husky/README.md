@@ -143,7 +143,7 @@ Huskyを設定して、Gitフックを有効にします。
 
    ```json
    "scripts": {
-     "postinstall": "husky install"
+     "prepare": "husky install"
    }
    ```
 
