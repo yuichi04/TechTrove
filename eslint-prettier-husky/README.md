@@ -6,7 +6,7 @@
 npm init -y
 ```
 
-## ESLint
+# ESlint
 
 ESLint：JavaScriptコードの品質を維持し、開発プロセスを改善するのに役立つツール
 
@@ -56,7 +56,7 @@ node_modules
 dist
 ```
 
-## Prettier
+# Prettier
 
 Prettier：コードのフォーマットを自動化し、一貫したコーディングスタイルを保つためのツール
 
@@ -115,52 +115,62 @@ dist
 
 ---
 
-## Husky 設定ガイド
+以下は、Huskyと`lint-staged`を組み合わせて使用し、ステージングされたファイルに対してLintや自動修正を行う方法について説明するための`README.md`ファイルのサンプルです。このサンプルを基にして、あなたのリポジトリのREADMEを作成し、プロジェクトのニーズに合わせてカスタマイズしてください。
 
-このドキュメントでは、Huskyをプロジェクトに導入し、Gitフックを利用してコードの品質を保持する方法について説明します。Huskyを使用すると、コミット前に自動的にLintやテストを実行するなど、開発プロセスを改善できます。
+# Husky と lint-staged
+
+このドキュメントでは、Huskyと`lint-staged`をプロジェクトに導入し、Gitコミット時にステージングされたファイルに対して自動的にLintやフォーマットを実行する方法について説明します。これにより、コードの品質を保ちながら、開発プロセスを効率化できます。
 
 ### インストール
 
-Huskyをプロジェクトの開発依存関係としてnpmを使用してインストールします。
+まず、Huskyと`lint-staged`をプロジェクトの開発依存関係としてインストールします。
 
 ```shell
-# husky本体
-npm install husky --save-dev
-
-# ステージングされたものに対する操作を行うライブラリ
-npm install lint-staged --save-dev
+npm install husky lint-staged --save-dev
 ```
 
 ### Huskyの設定
 
-Huskyを使用するには、`package.json`にHuskyの設定を追加し、どのGitフックでどのコマンドを実行するかを定義します。
+Huskyを設定して、Gitフックを有効にします。
 
 1. **Huskyの有効化**:
-
-   Huskyを有効化するには、以下のコマンドをプロジェクトのルートで実行します。
 
    ```shell
    npx husky install
    ```
 
-   これにより、`.husky/`ディレクトリがプロジェクトに追加され、Gitフックがこのディレクトリ内で管理されます。
+   `package.json`にHuskyの設定を追加して、`postinstall`スクリプトを設定します。
 
-2. **Gitフックの追加**:
-
-   コミット前にLintを実行するための`pre-commit`フックを追加します。
-
-   ```shell
-   npx husky add .husky/pre-commit "npm run lint"
+   ```json
+   "scripts": {
+     "postinstall": "husky install"
+   }
    ```
 
-   このコマンドは`.husky/pre-commit`ファイルを作成し、`npm run lint`をコミット前に実行するように設定します。
+2. **`pre-commit`フックの設定**:
 
-### Huskyフックのカスタマイズ
+   Huskyを使用して`pre-commit`フックを設定し、`lint-staged`を実行します。
 
-Huskyでは、`pre-commit`以外にも多くのフックをカスタマイズできます。例えば、`pre-push`フックを使用して、プッシュ前にテストを実行することも可能です。
+   ```shell
+   npx husky add .husky/pre-commit "npx lint-staged"
+   ```
 
-```shell
-npx husky add .husky/pre-push "npm run test"
+### lint-stagedの設定
+
+`lint-staged`を使用して、ステージングされたファイルに対してLintやフォーマットを実行するルールを`package.json`に追加します。
+
+```json
+"lint-staged": {
+  "*.js": [
+    "eslint --fix",
+    "prettier --write",
+    "git add"
+  ]
+}
 ```
 
-このコマンドは`.husky/pre-push`ファイルを作成し、`npm run test`をプッシュ前に実行するように設定します。
+この設定では、`.js`ファイルに対して`eslint --fix`と`prettier --write`を実行し、自動修正後にファイルを再ステージングします。
+
+### 使い方
+
+この設定により、`git commit`を実行する際に、自動的に`lint-staged`が呼び出され、設定したルールに基づいてステージングされた`.js`ファイルがLintされ、フォーマットされます。問題がなければコミットが成功し、問題があれば修正を促されます。
