@@ -120,8 +120,8 @@ npm install --save-dev vitest happy-dom @vitest/coverage-v8 @testing-library/rea
 
 ```json
 "scripts": {
-  ...
-  "test": "vitest watch",
+  "test": "vitest",
+  "test:watch": "vitest run --coverage",
   "coverage": "vitest run --coverage"
 }
 ```
