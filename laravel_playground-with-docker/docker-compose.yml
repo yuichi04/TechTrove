@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    nginx:
+        image: todoapp-nginx
+        build:
+            context: ./docker/nginx
+        depends_on:
+            - app
+        ports:
+            - 8000:80
+        volumes:
+            - ./:/src
+
+    app:
+      image: todoapp_app
+      build:
+          context: ./docker/php
+      depends_on:
+          - mysql
+      volumes:
+          - ./:/src
+          - /src/node_modules
+          - /src/vendor
+          - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+
+    mysql:
+        image: todoapp_mysql
+        build:
+            context: ./docker/mysql
+        volumes:
+            - todoapp-mysql-data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=todoapp
+        ports:
+            - 3306:3306
+
+volumes:
+    todoapp-mysql-data:
