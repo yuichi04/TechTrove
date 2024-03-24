@@ -23,17 +23,23 @@ composer create-project laravel/laravel .
 # 3. モジュールのインストール（composer.jsonとpackage.jsonに記述されたモジュール）
 composer install && npm install
 
-# 4. docker設定用のディレクトリを作成
+# 4. Laravel Breezeのインストール
+composer require laravel/breeze --dev
+
+# 5. breezeを使うにあたり、必要なファイルを生成（認証機能やTailwindCSSなどが使えるようになる）
+php artisan breeze:install
+
+# 6. docker設定用のディレクトリを作成
 mkdir docker && mkdir docker/php docker/nginx docker/mysql
 
-# 5. 各種Dockerfileと設定ファイルを作成
+# 7. 各種Dockerfileと設定ファイルを作成
 touch docker/php/Dockerfile docker/nginx/Dockerfile docker/mysql/Dockerfile
 touch docker/php/php.ini docker/nginx/default.conf
 
-# 6. 各種Dockerfileと設定ファイルを記述（中身はプロジェクトのファイルを参照）
+# 8. 各種Dockerfileと設定ファイルを記述（中身はプロジェクトのファイルを参照）
 
-# 7. docker-compose.ymlの作成（中身はプロジェクトのファイルを参照）
+# 9. docker-compose.ymlの作成（中身はプロジェクトのファイルを参照）
 
-# 8. dockerコンテナの起動（中身はプロジェクトのファイルを参照）
+# 10. dockerコンテナの起動（中身はプロジェクトのファイルを参照）
 docker-compose up -d
 ```
