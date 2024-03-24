@@ -1,9 +1,10 @@
 # PHP, Laravel, Nginx, MySQLの雛形用プロジェクト
-## 1. リポジトリのクローン
+## クローンする場合
+### 1. リポジトリのクローン
 ```shell
 git clone git@github.com:yuichi04/TechTrove.git
 ```
-## 2. dockerコンテナの起動
+### 2. dockerコンテナの起動
 ```shell
 docker-compose up -d
 ```
@@ -12,7 +13,7 @@ docker-compose up -d
 <br>
 <br>
 
-## 1から雛形を作成する場合の手順
+## 1から雛形を作成する場合
 ```shell
 # 1. プロジェクトのディレクトリを作成　&　移動
 mkdir myproject && cd $_
