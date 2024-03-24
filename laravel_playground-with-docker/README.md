@@ -53,7 +53,6 @@ DB_CONNECTION=sqlite
 
 # After
 # docker-compose.ymlに基づいて設定する
-
 DB_CONNECTION=mysql # 接続するデータベース種別
 DB_HOST=mysql # service名
 DB_PORT=3306 # ports
