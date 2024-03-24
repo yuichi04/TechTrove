@@ -1,5 +1,5 @@
 # PHP, Laravel, Nginx, MySQLの雛形用プロジェクト
-## クローンする場合
+## 1. クローンする場合
 ### 1. リポジトリのクローン
 ```shell
 git clone git@github.com:yuichi04/TechTrove.git
@@ -8,12 +8,7 @@ git clone git@github.com:yuichi04/TechTrove.git
 ```shell
 docker-compose up -d
 ```
-
-<br>
-<br>
-<br>
-
-## 1から雛形を作成する場合
+## 2. 1から雛形を作成する場合
 ```shell
 # 1. プロジェクトのディレクトリを作成　&　移動
 mkdir myproject && cd $_
@@ -44,7 +39,7 @@ touch docker/php/php.ini docker/nginx/default.conf
 # 10. dockerコンテナの起動（中身はプロジェクトのファイルを参照）
 docker-compose up -d
 ```
-
+---
 ## データベース接続設定（環境設定ファイルの修正）
 `.env`ファイルの以下の箇所を修正する
 ```
@@ -66,8 +61,7 @@ DB_DATABASE=todoapp # environment > MYSQL_DATABASE
 DB_USERNAME=root # environment > MYSQL_ROOT_PASSWORD
 DB_PASSWORD=root # デフォルトでは`root`。設定している場合はその値に変更すること
 ```
-
-
+---
 ## マイグレーションの注意点
 `php artisan migrate`コマンドは実行する環境の`.env`ファイルに基づいてデータベースに接続するため、ローカル環境ではなく、dockerコンテナ内でコマンドを実行する必要がある。<br>
 ```shell
