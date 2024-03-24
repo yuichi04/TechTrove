@@ -44,6 +44,29 @@ touch docker/php/php.ini docker/nginx/default.conf
 docker-compose up -d
 ```
 
+## データベース接続設定（環境設定ファイルの修正）
+`.env`ファイルの以下の箇所を修正する
+```
+# Before
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# After
+# docker-compose.ymlに基づいて設定する
+
+DB_CONNECTION=mysql # 接続するデータベース種別
+DB_HOST=mysql # service名
+DB_PORT=3306 # ports
+DB_DATABASE=todoapp # environment > MYSQL_DATABASE
+DB_USERNAME=root # environment > MYSQL_ROOT_PASSWORD
+DB_PASSWORD=root # デフォルトでは`root`。設定している場合はその値に変更すること
+```
+
+
 ## マイグレーションの注意点
 `php artisan migrate`コマンドは実行する環境の`.env`ファイルに基づいてデータベースに接続するため、ローカル環境ではなく、dockerコンテナ内でコマンドを実行する必要がある。<br>
 ```shell
