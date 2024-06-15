@@ -37,6 +37,13 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session")
+	delete(session.Values, "user")
+	session.Save(r, w)
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		tmpl, _ := template.ParseFiles("templates/register.html")
